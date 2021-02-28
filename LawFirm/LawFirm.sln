@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawFirmView", "LawFirmView\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LawFirmBusinessLogic", "LawFirmBusinessLogic\LawFirmBusinessLogic.csproj", "{6237CEEF-7A3E-488E-BCFE-E7121BF996B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawFirmListImplement", "LawFirmListImplement\LawFirmListImplement.csproj", "{8AF42ED0-E5C5-45C1-840B-E62CBBC81FEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LawFirmListImplement", "LawFirmListImplement\LawFirmListImplement.csproj", "{8AF42ED0-E5C5-45C1-840B-E62CBBC81FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawFirmFileImplement", "LawFirmFileImplement\LawFirmFileImplement.csproj", "{7A98812E-1039-47DA-84A5-F960C9A5AB29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LawFirmFileImplement", "LawFirmFileImplement\LawFirmFileImplement.csproj", "{7A98812E-1039-47DA-84A5-F960C9A5AB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawFirmDatabaseImplement", "LawFirmDatabaseImplement\LawFirmDatabaseImplement.csproj", "{C4D914A1-BB01-4335-94E1-C53CC1592B61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7A98812E-1039-47DA-84A5-F960C9A5AB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A98812E-1039-47DA-84A5-F960C9A5AB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A98812E-1039-47DA-84A5-F960C9A5AB29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D914A1-BB01-4335-94E1-C53CC1592B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D914A1-BB01-4335-94E1-C53CC1592B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D914A1-BB01-4335-94E1-C53CC1592B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D914A1-BB01-4335-94E1-C53CC1592B61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
