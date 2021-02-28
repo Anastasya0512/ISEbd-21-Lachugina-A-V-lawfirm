@@ -128,5 +128,16 @@ order.Status,order.DateCreate, order.DateImplement});
 
         }
 
+        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormFullingWarehouse>();
+            form.ShowDialog();
+        }
+
+        private void складыToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
     }
 }
