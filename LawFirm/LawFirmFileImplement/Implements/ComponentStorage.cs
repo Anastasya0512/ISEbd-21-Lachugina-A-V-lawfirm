@@ -33,15 +33,15 @@ namespace LawFirmFileImplement.Implements
             {
                 return null;
             }
-            var component = source.Components.FirstOrDefault(rec => rec.ComponentName == model.ComponentName ||
-rec.Id == model.Id);
+            var component = source.Components.FirstOrDefault(rec => rec.ComponentName == model.ComponentName || 
+            rec.Id == model.Id);
 
             return component != null ? CreateModel(component) : null;
         }
         public void Insert(ComponentBindingModel model)
         {
             int maxId = source.Components.Count > 0 ? source.Components.Max(rec =>
-rec.Id) : 0;
+            rec.Id) : 0;
             var element = new Component { Id = maxId + 1 };
             source.Components.Add(CreateModel(model, element));
         }
@@ -58,7 +58,7 @@ rec.Id) : 0;
         public void Delete(ComponentBindingModel model)
         {
             Component element = source.Components.FirstOrDefault(rec => rec.Id ==
-model.Id);
+            model.Id);
             if (element != null)
             {
                 source.Components.Remove(element);

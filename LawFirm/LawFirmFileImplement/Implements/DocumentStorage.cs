@@ -51,7 +51,6 @@ namespace LawFirmFileImplement.Implements
             {
                 throw new Exception("Элемент не найден");
             }
-
             CreateModel(model, element);
         }
         public void Delete(DocumentBindingModel model)

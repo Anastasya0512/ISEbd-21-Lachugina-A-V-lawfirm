@@ -114,11 +114,9 @@ namespace LawFirmFileImplement
                 foreach (var elem in xElements)
                 {
                     var docComp = new Dictionary<int, int>();
-                    foreach (var component in
-elem.Element("DocumentComponents").Elements("DocumentComponent").ToList())
+                    foreach (var component in elem.Element("DocumentComponents").Elements("DocumentComponent").ToList())
                     {
-                        docComp.Add(Convert.ToInt32(component.Element("Key").Value),
-Convert.ToInt32(component.Element("Value").Value));
+                        docComp.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
                     }
                     list.Add(new Document
                     {
