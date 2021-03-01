@@ -14,6 +14,6 @@ namespace LawFirmBusinessLogic.BindingModels
 
         public DateTime DateCreate { get; set; }
 
-        public Dictionary<int, (string, int)> WarehouseComponents { get; set; } // COmponentId, (ComponentName, count)
+        public Dictionary<int, (string, int)> WarehouseComponents { get; set; } 
     }
 }

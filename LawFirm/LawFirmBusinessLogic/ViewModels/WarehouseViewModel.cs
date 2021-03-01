@@ -18,6 +18,6 @@ namespace LawFirmBusinessLogic.ViewModels
         [DisplayName("Дата создания")]
         public DateTime DateCreate { get; set; }
 
-        public Dictionary<int, (string, int)> WarehouseComponents { get; set; } // Id, (ComponentName, count)
+        public Dictionary<int, (string, int)> WarehouseComponents { get; set; } 
     }
 }
