@@ -117,14 +117,6 @@ namespace LawFirmListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string documentName = null;
-            foreach (var document in source.Documents)
-            {
-                if (document.Id == order.DocumentId)
-                {
-                    documentName = document.DocumentName;
-                }
-            }
             return new OrderViewModel
             {
                 Id = order.Id,
@@ -134,7 +126,7 @@ namespace LawFirmListImplement.Implements
                 DateCreate = order.DateCreate,
                 Status = order.Status,
                 DateImplement = order.DateImplement,
-                DocumentName = documentName
+                DocumentName = source.Documents.FirstOrDefault(p => p.Id == order.DocumentId)?.DocumentName
             };
         }
     }
