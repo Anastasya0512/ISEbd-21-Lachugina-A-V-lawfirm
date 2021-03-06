@@ -28,12 +28,10 @@ namespace LawFirmView
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.Rows.Clear();
-                    foreach (var order in list)
-                    {
-                        dataGridView.Rows.Add(new object[] { order.Id, order.DocumentId, order.DocumentName, order.Count, order.Sum,
-order.Status,order.DateCreate, order.DateImplement});
-                    }
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -68,11 +66,7 @@ order.Status,order.DateCreate, order.DateImplement});
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                    {
-                        OrderId =
-                   id
-                    });
+                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -90,10 +84,7 @@ order.Status,order.DateCreate, order.DateImplement});
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
-                    {
-                        OrderId = id
-                    });
+                    _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -125,7 +116,6 @@ order.Status,order.DateCreate, order.DateImplement});
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
-
         }
 
         private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
