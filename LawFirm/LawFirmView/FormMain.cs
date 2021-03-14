@@ -11,11 +11,13 @@ namespace LawFirmView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
+        private ReportLogic report;
 
-        public FormMain(OrderLogic orderLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic Report)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
+            report = Report;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -128,5 +130,54 @@ order.Status,order.DateCreate, order.DateImplement});
 
         }
 
+        private void списокКомпонентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveComponentsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void компонентыToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportDocumentComponents>();
+            form.ShowDialog();
+        }
+
+        private void документыПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportComponentDocument>();
+            form.ShowDialog();
+        }
+
+        private void списокДокументовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveDocumentsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClientOrders>();
+            form.ShowDialog();
+        }
     }
 }
