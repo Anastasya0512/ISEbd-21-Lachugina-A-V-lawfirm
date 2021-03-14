@@ -12,32 +12,17 @@ namespace LawFirmView
 {
     public partial class FormFullingWarehouse : Form
     {
-        WarehouseStorage _warehouseStorage = new WarehouseStorage();
-
-        WarehouseBindingModel bm = new WarehouseBindingModel();
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
+        public int ComponentId { get { return Convert.ToInt32(comboBoxComponent.SelectedValue); } set { comboBoxComponent.SelectedValue = value; } }
+        public int WarehouseId { get { return Convert.ToInt32(comboBoxWarehouse.SelectedValue); } set { comboBoxWarehouse.SelectedValue = value; } }
+        public int Count { get { return Convert.ToInt32(textBoxCount.Text); } set { textBoxCount.Text = value.ToString(); } }
 
         public string ComponentName { get { return comboBoxComponent.Text; } }
 
-        public int ComponentId
-        {
-            get { return Convert.ToInt32(comboBoxComponent.SelectedValue); }
-            set { comboBoxComponent.SelectedValue = value; }
-        }
+        WarehouseStorage _warehouseStorage;
 
-        public int WarehouseId
-        {
-            get { return Convert.ToInt32(comboBoxWarehouse.SelectedValue); }
-            set { comboBoxWarehouse.SelectedValue = value; }
-        }
-
-        public int Count
-        {
-            get { return Convert.ToInt32(textBoxCount.Text); }
-            set
-            {
-                textBoxCount.Text = value.ToString();
-            }
-        }
+        WarehouseBindingModel warehouseBindingModel = new WarehouseBindingModel();
 
         public FormFullingWarehouse(ComponentLogic componentlogic, WarehouseLogic warehouseLogic)
         {
@@ -82,7 +67,7 @@ namespace LawFirmView
                 return;
             }
 
-            _warehouseStorage.Restocking(bm, WarehouseId, ComponentId, Count, ComponentName);
+            _warehouseStorage.Restocking(warehouseBindingModel, WarehouseId, ComponentId, Count, ComponentName);
             DialogResult = DialogResult.OK;
             Close();
         }

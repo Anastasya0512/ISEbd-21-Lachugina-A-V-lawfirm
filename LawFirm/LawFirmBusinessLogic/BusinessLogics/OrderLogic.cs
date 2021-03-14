@@ -11,9 +11,11 @@ namespace LawFirmBusinessLogic.BusinessLogics
     public class OrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -29,6 +31,10 @@ namespace LawFirmBusinessLogic.BusinessLogics
         }
         public void CreateOrder(CreateOrderBindingModel model)
         {
+            if (!_warehouseStorage.WriteOff(model.Count, model.DocumentId))
+            {
+                throw new Exception("Компонентов не достаточно");
+            }
             _orderStorage.Insert(new OrderBindingModel
             {
                 DocumentId = model.DocumentId,

@@ -18,18 +18,21 @@ namespace LawFirmFileImplement
         private readonly string OrderFileName = "Order.xml";
 
         private readonly string DocumentFileName = "Document.xml";
+        private readonly string WarehouseFileName = "Warehouse.xml";
 
         public List<Component> Components { get; set; }
 
         public List<Order> Orders { get; set; }
 
         public List<Document> Documents { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
 
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
             Documents = LoadDocuments();
+            Warehouses = LoadWarehouses();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -46,6 +49,7 @@ namespace LawFirmFileImplement
             SaveComponents();
             SaveOrders();
             SaveDocuments();
+            SaveWarehouses();
         }
 
         private List<Component> LoadComponents()
@@ -80,10 +84,26 @@ namespace LawFirmFileImplement
 
                 foreach (var elem in xElements)
                 {
+                    OrderStatus orderStatus = 0;
                     DateTime? dateImplement = null;
                     if (elem.Element("DateImplement").Value != "")
                     {
                         dateImplement = Convert.ToDateTime(elem.Element("DateImplement").Value);
+                    }
+                    switch (elem.Element("Status").Value)
+                    {
+                        case "Принят":
+                            orderStatus = OrderStatus.Принят;
+                            break;
+                        case "Выполняется":
+                            orderStatus = OrderStatus.Выполняется;
+                            break;
+                        case "Готов":
+                            orderStatus = OrderStatus.Готов;
+                            break;
+                        case "Оплачен":
+                            orderStatus = OrderStatus.Оплачен;
+                            break;
                     }
 
                     list.Add(new Order
@@ -92,10 +112,10 @@ namespace LawFirmFileImplement
                         DocumentId = Convert.ToInt32(elem.Element("DocumentId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
-                        Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
+                        Status = orderStatus,
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
                         DateImplement = dateImplement
-                    });
+                    }); 
                 }
             }
             return list;
@@ -126,6 +146,32 @@ Convert.ToInt32(component.Element("Value").Value));
                         DocumentName = elem.Element("DocumentName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
                         DocumentComponents = docComp
+                    });
+                }
+            }
+            return list;
+        }
+        private List<Warehouse> LoadWarehouses()
+        {
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                XDocument xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var elem in xElements)
+                {
+                    var warComp = new Dictionary<int, int>();
+                    foreach (var component in elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList())
+                    {
+                        warComp.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
+                    }
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        WarehouseName = elem.Element("WarehouseName").Value,
+                        Responsible = elem.Element("Responsible").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
+                        WarehouseComponents = warComp
                     });
                 }
             }
@@ -199,5 +245,31 @@ Convert.ToInt32(component.Element("Value").Value));
                 xDocument.Save(DocumentFileName);
             }
         }
+            private void SaveWarehouses()
+            {
+                if (Warehouses != null)
+                {
+                    var xElement = new XElement("Warehouses");
+                    foreach (var warehouse in Warehouses)
+                    {
+                        var compElement = new XElement("WarehouseComponents");
+                        foreach (var component in warehouse.WarehouseComponents)
+                        {
+                            compElement.Add(new XElement("WarehouseComponent",
+                            new XElement("Key", component.Key),
+                            new XElement("Value", component.Value)));
+                        }
+                        xElement.Add(new XElement("Warehouse",
+                        new XAttribute("Id", warehouse.Id),
+                        new XElement("WarehouseName", warehouse.WarehouseName),
+                        new XElement("Responsible", warehouse.Responsible),
+                        new XElement("DateCreate", warehouse.DateCreate),
+                        compElement));
+                    }
+                    XDocument xDocument = new XDocument(xElement);
+                    xDocument.Save(WarehouseFileName);
+                }
+            }
+        }
     }
-}
+

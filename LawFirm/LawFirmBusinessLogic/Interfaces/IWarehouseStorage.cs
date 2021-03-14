@@ -14,12 +14,13 @@ namespace LawFirmBusinessLogic.Interfaces
 
         WarehouseViewModel GetElement(WarehouseBindingModel model);
 
-        void Restocking(WarehouseBindingModel model, int WarehouseId, int ComponentId, int Count, string ComponentName);
+        void Restocking(WarehouseBindingModel warehouseBindingModel, int WarehouseId, int ComponentId, int Count, string ComponentName);
 
         void Insert(WarehouseBindingModel model);
 
         void Update(WarehouseBindingModel model);
 
         void Delete(WarehouseBindingModel model);
+        bool WriteOff(int DocumentCount, int DocumentId);
     }
 }
