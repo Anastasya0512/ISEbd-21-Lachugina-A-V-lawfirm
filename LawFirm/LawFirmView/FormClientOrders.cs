@@ -86,6 +86,7 @@ MessageBoxIcon.Information);
 
             this.reportViewer.RefreshReport();
             this.reportViewer.RefreshReport();
+            this.reportViewer.RefreshReport();
         }
     }
 }

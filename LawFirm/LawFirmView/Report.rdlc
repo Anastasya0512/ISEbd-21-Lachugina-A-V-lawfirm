@@ -232,7 +232,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Изделие</Value>
+                                  <Value>Документ</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -525,7 +525,7 @@
             <Top>4.82925cm</Top>
             <Left>1.57903cm</Left>
             <Height>2.4065cm</Height>
-            <Width>19.59083cm</Width>
+            <Width>19.59082cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>

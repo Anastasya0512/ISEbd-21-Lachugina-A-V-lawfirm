@@ -114,7 +114,7 @@
             // reportViewer
             // 
             this.reportViewer.LocalReport.ReportEmbeddedResource = "LawFirmView.Report.rdlc";
-            this.reportViewer.Location = new System.Drawing.Point(12, 68);
+            this.reportViewer.Location = new System.Drawing.Point(13, 68);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
             this.reportViewer.Size = new System.Drawing.Size(1068, 456);
