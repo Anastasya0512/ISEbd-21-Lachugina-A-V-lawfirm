@@ -3,7 +3,9 @@ using LawFirmBusinessLogic.ViewModels;
 using LawFirmBusinessLogic.BusinessLogics;
 using System;
 using LawFirmBusinessLogic.BindingModels;
-using LawFirmListImplement.Implements;
+using LawFirmFileImplement;
+using LawFirmFileImplement.Implements;
+using LawFirmFileImplement.Models;
 using System.Windows.Forms;
 using Unity;
 using System.Linq;
@@ -24,10 +26,11 @@ namespace LawFirmView
 
         WarehouseBindingModel warehouseBindingModel = new WarehouseBindingModel();
 
-        public FormFullingWarehouse(ComponentLogic componentlogic, WarehouseLogic warehouseLogic)
+        public FormFullingWarehouse(ComponentLogic componentlogic, WarehouseStorage warehouseStorage)
         {
+            _warehouseStorage = warehouseStorage;
             InitializeComponent();
-            List<ComponentViewModel> listComponent = componentlogic.Read(null);
+            List <ComponentViewModel> listComponent = componentlogic.Read(null);
             if (listComponent != null)
             {
                 comboBoxComponent.DisplayMember = "ComponentName";
@@ -36,7 +39,7 @@ namespace LawFirmView
                 comboBoxComponent.SelectedItem = null;
             }
 
-            List<WarehouseViewModel> listWarehouse = warehouseLogic.Read(null);
+            List<WarehouseViewModel> listWarehouse = _warehouseStorage.GetFullList();
             if (listWarehouse != null)
             {
                 comboBoxWarehouse.DisplayMember = "WarehouseName";

@@ -190,5 +190,10 @@ namespace LawFirmListImplement.Implements
                 WarehouseComponents = warehouseComponents
             };
         }
+
+        bool IWarehouseStorage.WriteOff(int DocumentCount, int DocumentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

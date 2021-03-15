@@ -31,10 +31,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
         }
         public void CreateOrder(CreateOrderBindingModel model)
         {
-            if (!_warehouseStorage.WriteOff(model.Count, model.DocumentId))
-            {
-                throw new Exception("Компонентов не достаточно");
-            }
+           
             _orderStorage.Insert(new OrderBindingModel
             {
                 DocumentId = model.DocumentId,
@@ -58,6 +55,10 @@ namespace LawFirmBusinessLogic.BusinessLogics
             if (order.Status != OrderStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
+            }
+            if (!_warehouseStorage.WriteOff(order.Count, order.DocumentId))
+            {
+                throw new Exception("Компонентов не достаточно");
             }
             _orderStorage.Update(new OrderBindingModel
             {
