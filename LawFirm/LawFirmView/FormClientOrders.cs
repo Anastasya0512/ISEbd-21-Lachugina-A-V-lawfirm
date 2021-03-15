@@ -28,17 +28,15 @@ namespace LawFirmView
             }
             try
             {
-                ReportParameter parameter = new ReportParameter("ReportParameterPeriod", "c " +
-                dateTimePickerFrom.Value.ToShortDateString() + " по " +
-                dateTimePickerTo.Value.ToShortDateString());
+                ReportParameter parameter = new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " +
+dateTimePickerTo.Value.ToShortDateString());
                 reportViewer.LocalReport.SetParameters(parameter);
                 var dataSource = logic.GetOrders(new ReportBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
-                ReportDataSource source = new ReportDataSource("DataSetOrders",
-                dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetOrders", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
@@ -81,6 +79,13 @@ MessageBoxIcon.Information);
                     }
                 }
             }
+        }
+
+        private void FormClientOrders_Load(object sender, EventArgs e)
+        {
+
+            this.reportViewer.RefreshReport();
+            this.reportViewer.RefreshReport();
         }
     }
 }

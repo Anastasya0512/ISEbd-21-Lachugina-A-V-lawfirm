@@ -95,16 +95,14 @@ namespace LawFirmBusinessLogic.BusinessLogics
             {
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
-            })
-            .Select(x => new ReportOrdersViewModel
+            }).Select(x => new ReportOrdersViewModel
             {
                 DateCreate = x.DateCreate,
                 DocumentName = x.DocumentName,
                 Count = x.Count,
                 Sum = x.Sum,
                 Status = x.Status
-            })
-            .ToList();
+            }).ToList();
         }
         /// <summary>
         /// Сохранение компонент в файл-Word
