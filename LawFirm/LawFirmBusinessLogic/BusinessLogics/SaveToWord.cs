@@ -70,23 +70,13 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 docBody.AppendChild(CreateParagraph(new WordParagraph
                 {
                     Texts = new List<(string, WordTextProperties)> {
-                    ("Название: " + document.DocumentName, new WordTextProperties {Bold = true, Size = "24", }) },
+                    (document.DocumentName, new WordTextProperties {Bold = true, Size = "24", }), (" " + document.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
                     TextProperties = new WordTextProperties
                     {
                         Size = "24",
                         JustificationValues = JustificationValues.Both
                     }
-                })); ;
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> {
-                    ("Цена: " + document.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                })); ;
+                })); ;             
             }
         }
 

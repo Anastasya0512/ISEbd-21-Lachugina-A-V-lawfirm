@@ -11,8 +11,6 @@ namespace LawFirmBusinessLogic.HelperModels
 
         public string Title { get; set; }
 
-        public List<ReportDocumentComponentViewModel> DocumentComponents { get; set; }
-
         public List<ReportComponentDocumentViewModel> ComponentDocuments { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using LawFirmBusinessLogic.BindingModels;
 using LawFirmBusinessLogic.HelperModels;
 using LawFirmBusinessLogic.Interfaces;
+using LawFirmBusinessLogic.Enums;
 using LawFirmBusinessLogic.ViewModels;
 
 namespace LawFirmBusinessLogic.BusinessLogics
@@ -24,36 +25,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
             _componentStorage = componentStorage;
             _orderStorage = orderStorage;
         }
-        /// <summary>
-        /// Получение списка компонент с указанием, в каких изделиях используются
-        /// </summary>
-        /// <returns></returns>
-        public List<ReportDocumentComponentViewModel> GetDocumentComponent()
-        {
-            var components = _componentStorage.GetFullList();
-            var documents = _documentStorage.GetFullList();
-            var list = new List<ReportDocumentComponentViewModel>();
-            foreach (var component in components)
-            {
-                var record = new ReportDocumentComponentViewModel
-                {
-                    ComponentName = component.ComponentName,
-                    Documents = new List<Tuple<string, int>>(),
-                    TotalCount = 0
-                };
-                foreach (var document in documents)
-                {
-                    if (document.DocumentComponents.ContainsKey(component.Id))
-                    {
-                        record.Documents.Add(new Tuple<string, int>(document.DocumentName,
-                        document.DocumentComponents[component.Id].Item2));
-                        record.TotalCount += document.DocumentComponents[component.Id].Item2;
-                    }
-                }
-                list.Add(record);
-            }
-            return list;
-        }
+
         /// <summary>
         /// Получение списка компонент с указанием, в каких изделиях используются
         /// </summary>
@@ -101,22 +73,10 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 DocumentName = x.DocumentName,
                 Count = x.Count,
                 Sum = x.Sum,
-                Status = x.Status
+                Status = ((OrderStatus)Enum.Parse(typeof(OrderStatus), x.Status.ToString())).ToString()
             }).ToList();
         }
-        /// <summary>
-        /// Сохранение компонент в файл-Word
-        /// </summary>
-        /// <param name="model"></param>
-        public void SaveComponentsToWordFile(ReportBindingModel model)
-        {
-            SaveToWord.CreateDoc(new WordInfo
-            {
-                FileName = model.FileName,
-                Title = "Список компонент",
-                Components = _componentStorage.GetFullList()
-            });
-        }
+
         /// <summary>
         /// Сохранение изделия в файл-Word
         /// </summary>
@@ -130,19 +90,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 Documents = _documentStorage.GetFullList()
             });
         }
-        /// <summary>
-        /// Сохранение компонент с указаеним продуктов в файл-Excel
-        /// </summary>
-        /// <param name="model"></param>
-        public void SaveDocumentComponentToExcelFile(ReportBindingModel model)
-        {
-            SaveToExcel.CreateDoc(new ExcelInfo
-            {
-                FileName = model.FileName,
-                Title = "Список компонент",
-                DocumentComponents = GetDocumentComponent()
-            });
-        }
+
         /// <summary>
         /// Сохранение компонент с указаеним продуктов в файл-Excel
         /// </summary>
@@ -152,7 +100,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
-                Title = "Список изделий",
+                Title = "Список документов",
                 ComponentDocuments = GetComponentDocument()
             });
         }

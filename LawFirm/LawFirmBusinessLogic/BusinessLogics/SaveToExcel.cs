@@ -63,66 +63,13 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     CellToName = "C1"
                 });
                 uint rowIndex = 2;
-
-                if (info.DocumentComponents != null)
-                {
-                    CreateDocComponentBody(info, worksheetPart, shareStringPart, rowIndex);
-                }
+                
                 if (info.ComponentDocuments != null)
                 {
                     CreateDocDocumentBody(info, worksheetPart, shareStringPart, rowIndex);
                 }
 
                 workbookpart.Workbook.Save();
-            }
-        }
-
-        private static void CreateDocComponentBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart, uint rowIndex)
-        {
-            foreach (var pc in info.DocumentComponents)
-            {
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "A",
-                    RowIndex = rowIndex,
-                    Text = pc.ComponentName,
-                    StyleIndex = 0U
-                });
-                rowIndex++;
-                foreach (var document in pc.Documents)
-                {
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "B",
-                        RowIndex = rowIndex,
-                        Text = document.Item1,
-                        StyleIndex = 1U
-                    });
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "C",
-                        RowIndex = rowIndex,
-                        Text = document.Item2.ToString(),
-                        StyleIndex = 1U
-                    });
-                    rowIndex++;
-                }
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "C",
-                    RowIndex = rowIndex,
-                    Text = pc.TotalCount.ToString(),
-                    StyleIndex = 0U
-                });
-                rowIndex++;
             }
         }
 

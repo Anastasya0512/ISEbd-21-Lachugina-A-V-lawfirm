@@ -130,28 +130,6 @@ order.Status,order.DateCreate, order.DateImplement});
 
         }
 
-        private void списокКомпонентовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    report.SaveComponentsToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void компонентыToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormReportDocumentComponents>();
-            form.ShowDialog();
-        }
-
         private void документыПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportComponentDocument>();
