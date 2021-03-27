@@ -63,42 +63,44 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     CellToName = "C1"
                 });
                 uint rowIndex = 2;
-                
-                if (info.ComponentDocuments != null)
-                {
-                    CreateDocDocumentBody(info, worksheetPart, shareStringPart, rowIndex);
-                }
 
-                workbookpart.Workbook.Save();
-            }
-        }
-
-        private static void CreateDocDocumentBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart, uint rowIndex)
-        {
-            foreach (var pc in info.ComponentDocuments)
-            {
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "A",
-                    RowIndex = rowIndex,
-                    Text = pc.DocumentName,
-                    StyleIndex = 0U
-                });
-                rowIndex++;
-
-                foreach (var component in pc.Components)
+                foreach (var pc in info.ComponentDocuments)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
-                        ColumnName = "B",
+                        ColumnName = "A",
                         RowIndex = rowIndex,
-                        Text = component.Item1,
-                        StyleIndex = 1U
+                        Text = pc.DocumentName,
+                        StyleIndex = 0U
                     });
+                    rowIndex++;
+
+                    foreach (var component in pc.Components)
+                    {
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "B",
+                            RowIndex = rowIndex,
+                            Text = component.Item1,
+                            StyleIndex = 1U
+                        });
+
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "C",
+                            RowIndex = rowIndex,
+                            Text = component.Item2.ToString(),
+                            StyleIndex = 1U
+                        });
+
+                        rowIndex++;
+                    }
 
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
@@ -106,23 +108,12 @@ namespace LawFirmBusinessLogic.BusinessLogics
                         ShareStringPart = shareStringPart,
                         ColumnName = "C",
                         RowIndex = rowIndex,
-                        Text = component.Item2.ToString(),
-                        StyleIndex = 1U
+                        Text = pc.TotalCount.ToString(),
+                        StyleIndex = 0U
                     });
-
                     rowIndex++;
                 }
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "C",
-                    RowIndex = rowIndex,
-                    Text = pc.TotalCount.ToString(),
-                    StyleIndex = 0U
-                });
-                rowIndex++;
+                workbookpart.Workbook.Save();
             }
         }
         /// <summary>

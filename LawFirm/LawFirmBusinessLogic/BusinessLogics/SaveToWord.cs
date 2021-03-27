@@ -32,53 +32,25 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     }
                 }));
 
-                if (info.Components != null)
+                foreach (var document in info.Documents)
                 {
-                    CreateComponentDocBody(docBody, info);
-                }
-                if (info.Documents != null)
-                {
-                    CreateDocumentDocBody(docBody, info);
-                }
+                    docBody.AppendChild(CreateParagraph(new WordParagraph
+                    {
+                        Texts = new List<(string, WordTextProperties)> {
+                                (document.DocumentName, new WordTextProperties {Bold = true, Size = "24", }),
+                                (" Цена: " + document.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", })},
+                        TextProperties = new WordTextProperties
+                        {
+                            Size = "24",
+                            JustificationValues = JustificationValues.Both
+                        }
+                    })); ;
 
-
+                }
                 docBody.AppendChild(CreateSectionProperties());
                 wordDocument.MainDocumentPart.Document.Save();
             }
-        }
-
-        private static void CreateComponentDocBody(Body docBody, WordInfo info)
-        {
-            foreach (var component in info.Components)
-            {
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                }));
-            }
-        }
-
-        private static void CreateDocumentDocBody(Body docBody, WordInfo info)
-        {
-            foreach (var document in info.Documents)
-            {
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> {
-                    (document.DocumentName, new WordTextProperties {Bold = true, Size = "24", }), (" " + document.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                })); ;             
-            }
-        }
+        }   
 
         /// <summary>
         /// Настройки страницы
