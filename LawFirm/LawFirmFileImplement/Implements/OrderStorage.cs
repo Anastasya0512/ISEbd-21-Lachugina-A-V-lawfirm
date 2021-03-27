@@ -75,15 +75,15 @@ namespace LawFirmFileImplement.Implements
             }
         }
 
-        private Order CreateModel(OrderBindingModel model, Order component)
+        private Order CreateModel(OrderBindingModel model, Order order)
         {
-            component.DocumentId = model.DocumentId;
-            component.Count = model.Count;
-            component.Sum = model.Sum;
-            component.Status = model.Status;
-            component.DateCreate = model.DateCreate;
-            component.DateImplement = model.DateImplement;
-            return component;
+            order.DocumentId = model.DocumentId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            order.DateCreate = model.DateCreate;
+            order.DateImplement = model.DateImplement;
+            return order;
         }
 
         private OrderViewModel CreateModel(Order order)
