@@ -14,8 +14,13 @@ namespace LawFirmDatabaseImplement
             base.OnConfiguring(optionsBuilder);
         }
         public virtual DbSet<Component> Components { set; get; }
+
         public virtual DbSet<Document> Documents { set; get; }
+
         public virtual DbSet<DocumentComponent> DocumentComponents { set; get; }
+
         public virtual DbSet<Order> Orders { set; get; }
+
+        public virtual DbSet<Client> Clients { set; get; }
     }
 }

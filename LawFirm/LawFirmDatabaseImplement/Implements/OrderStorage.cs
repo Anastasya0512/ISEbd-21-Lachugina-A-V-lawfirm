@@ -18,14 +18,17 @@ namespace LawFirmDatabaseImplement.Implements
                 return context.Orders.Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
+                    DocumentName = context.Documents.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
                     DocumentId = rec.DocumentId,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                }).ToList();
+                    DateImplement = rec.DateImplement,
+                    ClientId = rec.ClientId,
+                    ClientFIO = context.Clients.FirstOrDefault(x => x.Id == rec.ClientId).ClientFIO
+                })
+                .ToList();
             }
         }
 
@@ -35,35 +38,26 @@ namespace LawFirmDatabaseImplement.Implements
             {
                 return null;
             }
-            if  (model.DateFrom!=null && model.DateTo != null) {
-                using (var context = new LawFirmDatabase())
-            {
-                    return context.Orders.Where(rec => rec.DateCreate>=model.DateFrom && rec.DateImplement<=model.DateTo).Select(rec => new OrderViewModel
-                    {
-                        Id = rec.Id,
-                        DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
-                        DocumentId = rec.DocumentId,
-                        Count = rec.Count,
-                        Sum = rec.Sum,
-                        Status = rec.Status,
-                        DateCreate = rec.DateCreate,
-                        DateImplement = rec.DateImplement
-                    }).ToList();
-                }
-            }
+
             using (var context = new LawFirmDatabase())
             {
-                return context.Orders.Where(rec => rec.Id.Equals(model.Id)).Select(rec => new OrderViewModel
+                return context.Orders
+                .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate == model.DateCreate) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
+                >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
+                .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
+                    DocumentName = context.Documents.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
                     DocumentId = rec.DocumentId,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                }).ToList();
+                    DateImplement = rec.DateImplement,
+                    ClientId = rec.ClientId
+                })
+                .ToList();
             }
         }
 
@@ -73,22 +67,24 @@ namespace LawFirmDatabaseImplement.Implements
             {
                 return null;
             }
-
             using (var context = new LawFirmDatabase())
             {
-                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                var order = context.Orders
+                .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == order.DocumentId).DocumentName,
+                    DocumentName = context.Documents.Include(x => x.Order).FirstOrDefault(r => r.Id == order.DocumentId)?.DocumentName,
                     DocumentId = order.DocumentId,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
                     DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement
-                } : null;
+                    DateImplement = order.DateImplement,
+                    ClientId = order.ClientId
+                } :
+                null;
             }
         }
 
@@ -96,20 +92,8 @@ namespace LawFirmDatabaseImplement.Implements
         {
             using (var context = new LawFirmDatabase())
             {
-                using (var transaction = context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        context.Orders.Add(CreateModel(model, new Order(), context));
-                        context.SaveChanges();
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
+                context.Orders.Add(CreateModel(model, new Order()));
+                context.SaveChanges();
             }
         }
 
@@ -117,25 +101,14 @@ namespace LawFirmDatabaseImplement.Implements
         {
             using (var context = new LawFirmDatabase())
             {
-                using (var transaction = context.Database.BeginTransaction())
+                var element = context.Orders.FirstOrDefault(rec => rec.Id ==
+                model.Id);
+                if (element == null)
                 {
-                    try
-                    {
-                        var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-                        if (element == null)
-                        {
-                            throw new Exception("Элемент не найден");
-                        }
-                        CreateModel(model, element, context);
-                        context.SaveChanges();
-                        transaction.Commit();
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+                    throw new Exception("Элемент не найден");
                 }
+                CreateModel(model, element);
+                context.SaveChanges();
             }
         }
 
@@ -143,7 +116,8 @@ namespace LawFirmDatabaseImplement.Implements
         {
             using (var context = new LawFirmDatabase())
             {
-                Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                Order element = context.Orders.FirstOrDefault(rec => rec.Id ==
+                model.Id);
                 if (element != null)
                 {
                     context.Orders.Remove(element);
@@ -156,7 +130,7 @@ namespace LawFirmDatabaseImplement.Implements
             }
         }
 
-        private Order CreateModel(OrderBindingModel model, Order order, LawFirmDatabase context)
+        private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.DocumentId = model.DocumentId;
             order.Count = model.Count;
@@ -164,6 +138,7 @@ namespace LawFirmDatabaseImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.ClientId = (int)model.ClientId;
             return order;
         }
     }

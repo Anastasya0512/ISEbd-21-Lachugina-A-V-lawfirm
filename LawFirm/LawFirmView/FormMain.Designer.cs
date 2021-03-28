@@ -42,14 +42,14 @@
             this.списокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocumentD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DocumentD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +112,7 @@
             this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1210, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1210, 30);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -122,7 +122,7 @@
             this.компонентыToolStripMenuItem,
             this.документыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.справочникиToolStripMenuItem.Text = "Справочники";
             // 
             // компонентыToolStripMenuItem
@@ -146,7 +146,7 @@
             this.списокToolStripMenuItem,
             this.списокЗаказовToolStripMenuItem});
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
-            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(73, 26);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
             // 
             // документыПоКомпонентамToolStripMenuItem
@@ -190,13 +190,47 @@
             this.dataGridView.Size = new System.Drawing.Size(879, 518);
             this.dataGridView.TabIndex = 13;
             // 
-            // ID
+            // DateEnd
             // 
-            this.ID.HeaderText = "id";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            this.ID.Width = 125;
+            this.DateEnd.HeaderText = "Дата завершения";
+            this.DateEnd.MinimumWidth = 6;
+            this.DateEnd.Name = "DateEnd";
+            this.DateEnd.Width = 125;
+            // 
+            // DateCreate
+            // 
+            this.DateCreate.HeaderText = "Дата создания";
+            this.DateCreate.MinimumWidth = 6;
+            this.DateCreate.Name = "DateCreate";
+            this.DateCreate.Width = 125;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Статус";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.Width = 125;
+            // 
+            // Sum
+            // 
+            this.Sum.HeaderText = "Сумма";
+            this.Sum.MinimumWidth = 6;
+            this.Sum.Name = "Sum";
+            this.Sum.Width = 125;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Количество";
+            this.Count.MinimumWidth = 6;
+            this.Count.Name = "Count";
+            this.Count.Width = 125;
+            // 
+            // Document
+            // 
+            this.Document.HeaderText = "Документ";
+            this.Document.MinimumWidth = 6;
+            this.Document.Name = "Document";
+            this.Document.Width = 125;
             // 
             // DocumentD
             // 
@@ -206,47 +240,13 @@
             this.DocumentD.Visible = false;
             this.DocumentD.Width = 125;
             // 
-            // Document
+            // ID
             // 
-            this.Document.HeaderText = "Документ";
-            this.Document.MinimumWidth = 6;
-            this.Document.Name = "Document";
-            this.Document.Width = 125;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Количество";
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
-            this.Count.Width = 125;
-            // 
-            // Sum
-            // 
-            this.Sum.HeaderText = "Сумма";
-            this.Sum.MinimumWidth = 6;
-            this.Sum.Name = "Sum";
-            this.Sum.Width = 125;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Статус";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.Width = 125;
-            // 
-            // DateCreate
-            // 
-            this.DateCreate.HeaderText = "Дата создания";
-            this.DateCreate.MinimumWidth = 6;
-            this.DateCreate.Name = "DateCreate";
-            this.DateCreate.Width = 125;
-            // 
-            // DateEnd
-            // 
-            this.DateEnd.HeaderText = "Дата завершения";
-            this.DateEnd.MinimumWidth = 6;
-            this.DateEnd.Name = "DateEnd";
-            this.DateEnd.Width = 125;
+            this.ID.HeaderText = "id";
+            this.ID.MinimumWidth = 6;
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            this.ID.Width = 125;
             // 
             // FormMain
             // 
@@ -284,6 +284,10 @@
         private System.Windows.Forms.ToolStripMenuItem компонентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem документыToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem документыПоКомпонентамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem списокToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem списокЗаказовToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocumentD;
         private System.Windows.Forms.DataGridViewTextBoxColumn Document;
@@ -292,9 +296,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateEnd;
-        private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem документыПоКомпонентамToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокЗаказовToolStripMenuItem;
     }
 }
