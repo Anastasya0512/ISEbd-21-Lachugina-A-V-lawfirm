@@ -99,8 +99,7 @@ namespace LawFirmClientApp.Controllers
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
             && !string.IsNullOrEmpty(fio))
             {
-                APIClient.PostRequest("api/client/register", new
-                ClientBindingModel
+                APIClient.PostRequest("api/client/register", new ClientBindingModel
                 {
                     ClientFIO = fio,
                     Email = login,
@@ -137,8 +136,8 @@ namespace LawFirmClientApp.Controllers
         [HttpPost]
         public decimal Calc(decimal count, int document)
         {
-            DocumentViewModel prod = APIClient.GetRequest<DocumentViewModel>($"api/main/getdocument?documentId={document}");
-            return count * prod.Price;
+            DocumentViewModel doc = APIClient.GetRequest<DocumentViewModel>($"api/main/getdocument?documentId={document}");
+            return count * doc.Price;
         }
     }
 }

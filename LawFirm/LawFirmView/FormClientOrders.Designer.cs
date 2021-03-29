@@ -28,42 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonMake = new System.Windows.Forms.Button();
+            this.buttonToPdf = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // reportViewer1
+            // reportViewer
             // 
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "LawFirmView.Report.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(-2, 116);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(989, 413);
-            this.reportViewer1.TabIndex = 0;
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "LawFirmView.Report.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(-2, 85);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(989, 444);
+            this.reportViewer.TabIndex = 0;
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(75, 40);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(60, 11);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerFrom.TabIndex = 1;
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(367, 40);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker2.TabIndex = 2;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(352, 11);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerTo.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 39);
+            this.label1.Location = new System.Drawing.Point(16, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(17, 17);
             this.label1.TabIndex = 3;
@@ -72,58 +74,68 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(313, 40);
+            this.label2.Location = new System.Drawing.Point(298, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(24, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "по";
             // 
-            // button1
+            // buttonMake
             // 
-            this.button1.Location = new System.Drawing.Point(593, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 30);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Сформировать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonMake.Location = new System.Drawing.Point(578, 9);
+            this.buttonMake.Name = "buttonMake";
+            this.buttonMake.Size = new System.Drawing.Size(166, 30);
+            this.buttonMake.TabIndex = 5;
+            this.buttonMake.Text = "Сформировать";
+            this.buttonMake.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonToPdf
             // 
-            this.button2.Location = new System.Drawing.Point(798, 40);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(155, 30);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "В PDF";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonToPdf.Location = new System.Drawing.Point(783, 11);
+            this.buttonToPdf.Name = "buttonToPdf";
+            this.buttonToPdf.Size = new System.Drawing.Size(155, 30);
+            this.buttonToPdf.TabIndex = 6;
+            this.buttonToPdf.Text = "В PDF";
+            this.buttonToPdf.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonToPdf);
+            this.panel1.Controls.Add(this.buttonMake);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.dateTimePickerTo);
+            this.panel1.Controls.Add(this.dateTimePickerFrom);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(952, 50);
+            this.panel1.TabIndex = 7;
             // 
             // FormClientOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 530);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.reportViewer1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.reportViewer);
             this.Name = "FormClientOrders";
             this.Text = "FormClientOrders";
             this.Load += new System.EventHandler(this.FormClientOrders_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonMake;
+        private System.Windows.Forms.Button buttonToPdf;
+        private System.Windows.Forms.Panel panel1;
     }
 }

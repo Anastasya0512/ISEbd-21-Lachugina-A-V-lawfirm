@@ -1,9 +1,11 @@
-﻿using System;
-using LawFirmBusinessLogic.BusinessLogics;
+﻿using Microsoft.Reporting.WebForms;
 using LawFirmBusinessLogic.BindingModels;
+using LawFirmBusinessLogic.ViewModels;
+using LawFirmBusinessLogic.BusinessLogics;
+using System;
 using System.Windows.Forms;
 using Unity;
-
+using System.Collections.Generic;
 namespace LawFirmView
 {
     public partial class FormMain : Form
@@ -30,18 +32,17 @@ namespace LawFirmView
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.Rows.Clear();
-                    foreach (var order in list)
-                    {
-                        dataGridView.Rows.Add(new object[] { order.Id, order.DocumentId, order.DocumentName, order.Count, order.Sum,
-order.Status,order.DateCreate, order.DateImplement});
-                    }
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].Visible = false;
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBoxIcon.Error);
             }
         }
         private void компонентыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,7 +155,7 @@ order.Status,order.DateCreate, order.DateImplement});
 
         private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportOrders>();
+            var form = Container.Resolve<FormClientOrders>();
             form.ShowDialog();
         }
 
