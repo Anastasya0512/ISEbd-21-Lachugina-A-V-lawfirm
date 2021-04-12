@@ -18,6 +18,7 @@ namespace LawFirmFileImplement
         private readonly string OrderFileName = "Order.xml";
 
         private readonly string DocumentFileName = "Document.xml";
+
         private readonly string WarehouseFileName = "Warehouse.xml";
 
         public List<Component> Components { get; set; }
