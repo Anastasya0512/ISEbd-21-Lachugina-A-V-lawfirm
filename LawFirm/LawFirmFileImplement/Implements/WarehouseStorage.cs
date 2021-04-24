@@ -114,34 +114,6 @@ namespace LawFirmFileImplement.Implements
             };
         }
 
-        public void Restocking(WarehouseBindingModel warehouseBindingModel, int WarehouseId, int ComponentId, int Count, string ComponentName)
-        {
-            WarehouseViewModel view = GetElement(new WarehouseBindingModel
-            {
-                Id = WarehouseId
-            });
-
-            if (view != null)
-            {
-                warehouseBindingModel.WarehouseComponents = view.WarehouseComponents;
-                warehouseBindingModel.DateCreate = view.DateCreate;
-                warehouseBindingModel.Id = view.Id;
-                warehouseBindingModel.Responsible = view.Responsible;
-                warehouseBindingModel.WarehouseName = view.WarehouseName;
-            }
-
-            if (warehouseBindingModel.WarehouseComponents.ContainsKey(ComponentId))
-            {
-                int count = warehouseBindingModel.WarehouseComponents[ComponentId].Item2;
-                warehouseBindingModel.WarehouseComponents[ComponentId] = (ComponentName, count + Count);
-            }
-            else
-            {
-                warehouseBindingModel.WarehouseComponents.Add(ComponentId, (ComponentName, Count));
-            }
-            Update(warehouseBindingModel);
-        }
-
         public bool WriteOff(int DocumentCount, int DocumentId)
         {
             var list = GetFullList();

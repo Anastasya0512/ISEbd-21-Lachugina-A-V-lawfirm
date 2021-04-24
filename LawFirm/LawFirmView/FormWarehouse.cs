@@ -12,13 +12,9 @@ namespace LawFirmView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
         private readonly WarehouseLogic logic;
-
         private int? id;
-
         private Dictionary<int, (string, int)> warehouseComponents;
 
         public FormWarehouse(WarehouseLogic service)
@@ -38,19 +34,16 @@ namespace LawFirmView
                     if (view != null)
                     {
                         textBoxName.Text = view.WarehouseName;
-                        textBoxResponsible.Text = view.Responsible.ToString();
+                        textBoxResponsible.Text = view.Responsible;
                         warehouseComponents = view.WarehouseComponents;
                         LoadData();
                     }
                 }
-
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
             else
             {
                 warehouseComponents = new Dictionary<int, (string, int)>();
@@ -64,16 +57,15 @@ namespace LawFirmView
                 if (warehouseComponents != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var dc in warehouseComponents)
+                    foreach (var pc in warehouseComponents)
                     {
-                        dataGridView.Rows.Add(new object[] { dc.Key, dc.Value.Item1, dc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { pc.Key, pc.Value.Item1, pc.Value.Item2 });
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -81,14 +73,12 @@ namespace LawFirmView
         {
             if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (string.IsNullOrEmpty(textBoxResponsible.Text))
             {
-                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show("Заполните ответственного", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -98,23 +88,20 @@ namespace LawFirmView
                     Id = id,
                     WarehouseName = textBoxName.Text,
                     Responsible = textBoxResponsible.Text,
-                    WarehouseComponents = warehouseComponents,
-                    DateCreate = DateTime.Now
+                    DateCreate = DateTime.Now,
+                    WarehouseComponents = warehouseComponents
                 });
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();

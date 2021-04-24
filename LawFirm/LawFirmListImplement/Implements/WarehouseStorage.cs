@@ -191,7 +191,7 @@ namespace LawFirmListImplement.Implements
             };
         }
 
-        bool IWarehouseStorage.WriteOff(int DocumentCount, int DocumentId)
+        public bool WriteOff(int DocumentId, int Count)
         {
             throw new NotImplementedException();
         }

@@ -43,11 +43,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel
-            {
-                Id =
-           model.OrderId
-            });
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
