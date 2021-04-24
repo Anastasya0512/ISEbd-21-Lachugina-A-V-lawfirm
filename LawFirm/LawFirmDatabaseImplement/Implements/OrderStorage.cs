@@ -15,11 +15,11 @@ namespace LawFirmDatabaseImplement.Implements
         {
             using (var context = new LawFirmDatabase())
             {
-                return context.Orders.Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Document).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
                     DocumentId = rec.DocumentId,
+                    DocumentName = rec.Document.DocumentName,                   
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -37,11 +37,11 @@ namespace LawFirmDatabaseImplement.Implements
             }
             using (var context = new LawFirmDatabase())
             {
-                return context.Orders.Where(rec => rec.Id.Equals(model.Id)).Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Document).Where(rec => rec.Id.Equals(model.Id)).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
                     DocumentId = rec.DocumentId,
+                    DocumentName = rec.Document.DocumentName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -60,13 +60,13 @@ namespace LawFirmDatabaseImplement.Implements
 
             using (var context = new LawFirmDatabase())
             {
-                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                var order = context.Orders.Include(rec => rec.Document).FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
-                    DocumentName = context.Documents.FirstOrDefault(r => r.Id == order.DocumentId).DocumentName,
                     DocumentId = order.DocumentId,
+                    DocumentName = order.Document.DocumentName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,

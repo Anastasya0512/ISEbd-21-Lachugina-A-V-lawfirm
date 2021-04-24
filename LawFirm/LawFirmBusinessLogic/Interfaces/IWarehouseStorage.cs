@@ -12,9 +12,7 @@ namespace LawFirmBusinessLogic.Interfaces
 
         List<WarehouseViewModel> GetFilteredList(WarehouseBindingModel model);
 
-        WarehouseViewModel GetElement(WarehouseBindingModel model);
-
-        void Restocking(WarehouseBindingModel warehouseBindingModel, int WarehouseId, int ComponentId, int Count, string ComponentName);
+        WarehouseViewModel GetElement(WarehouseBindingModel model);      
 
         void Insert(WarehouseBindingModel model);
 

@@ -22,15 +22,14 @@ namespace LawFirmView
 
         public string ComponentName { get { return comboBoxComponent.Text; } }
 
-        WarehouseStorage _warehouseStorage;
+        private readonly WarehouseLogic _warehouseLogic;
 
-        WarehouseBindingModel warehouseBindingModel = new WarehouseBindingModel();
-
-        public FormFullingWarehouse(ComponentLogic componentlogic, WarehouseStorage warehouseStorage)
+        public FormFullingWarehouse(ComponentLogic logicC, WarehouseLogic logicW)
         {
-            _warehouseStorage = warehouseStorage;
             InitializeComponent();
-            List <ComponentViewModel> listComponent = componentlogic.Read(null);
+            List<ComponentViewModel> listComponent = logicC.Read(null);
+            List<WarehouseViewModel> listWarehouse = logicW.Read(null);
+            _warehouseLogic = logicW;
             if (listComponent != null)
             {
                 comboBoxComponent.DisplayMember = "ComponentName";
@@ -38,8 +37,6 @@ namespace LawFirmView
                 comboBoxComponent.DataSource = listComponent;
                 comboBoxComponent.SelectedItem = null;
             }
-
-            List<WarehouseViewModel> listWarehouse = _warehouseStorage.GetFullList();
             if (listWarehouse != null)
             {
                 comboBoxWarehouse.DisplayMember = "WarehouseName";
@@ -70,7 +67,7 @@ namespace LawFirmView
                 return;
             }
 
-            _warehouseStorage.Restocking(warehouseBindingModel, WarehouseId, ComponentId, Count, ComponentName);
+            _warehouseLogic.Filling(new WarehouseBindingModel { }, WarehouseId, ComponentId, Count, ComponentName);
             DialogResult = DialogResult.OK;
             Close();
         }
