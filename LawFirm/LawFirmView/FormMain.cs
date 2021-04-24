@@ -11,11 +11,13 @@ namespace LawFirmView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
+        private ReportLogic report;
 
-        public FormMain(OrderLogic orderLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic Report)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
+            report = Report;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -28,10 +30,12 @@ namespace LawFirmView
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Rows.Clear();
+                    foreach (var order in list)
+                    {
+                        dataGridView.Rows.Add(new object[] { order.Id, order.DocumentId, order.DocumentName, order.Count, order.Sum,
+order.Status,order.DateCreate, order.DateImplement});
+                    }
                 }
             }
             catch (Exception ex)
@@ -66,12 +70,17 @@ namespace LawFirmView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = id });
+                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                    {
+                        OrderId =
+                   id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
                 }
             }
         }
@@ -83,7 +92,10 @@ namespace LawFirmView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = id });
+                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                    {
+                        OrderId = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -115,17 +127,34 @@ namespace LawFirmView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+
         }
 
-        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
+        private void документыПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormFullingWarehouse>();
+            var form = Container.Resolve<FormReportComponentDocument>();
             form.ShowDialog();
         }
 
-        private void складыToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void списокДокументовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormWarehouses>();
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    report.SaveDocumentsToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClientOrders>();
             form.ShowDialog();
         }
     }
