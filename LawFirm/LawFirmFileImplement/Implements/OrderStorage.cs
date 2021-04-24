@@ -24,11 +24,14 @@ namespace LawFirmFileImplement.Implements
 
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
-            if (model.DateFrom != null && model.DateTo != null)
+            if (model == null)
             {
-                return source.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateImplement <= model.DateTo).Select(CreateModel).ToList();
+                return null;
             }
-            return source.Orders.Where(rec => rec.DocumentId.ToString().Contains(model.DocumentId.ToString())).Select(CreateModel).ToList();
+
+            return source.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date
+                && rec.DateCreate.Date <= model.DateTo.Value.Date)).Select(CreateModel).ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)

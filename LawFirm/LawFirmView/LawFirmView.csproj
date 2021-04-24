@@ -301,12 +301,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Report.rdlc" />
+    <EmbeddedResource Include="ReportAll.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.ComponentViewModel.datasource" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.DocumentViewModel.datasource" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.ReportComponentDocumentViewModel.datasource" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.ReportDocumentComponentViewModel.datasource" />
+    <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.ReportOrdersAllDatesViewModel.datasource" />
     <None Include="Properties\DataSources\LawFirmBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -333,10 +335,6 @@
     <ProjectReference Include="..\LawFirmFileImplement\LawFirmFileImplement.csproj">
       <Project>{7a98812e-1039-47da-84a5-f960c9a5ab29}</Project>
       <Name>LawFirmFileImplement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LawFirmListImplement\LawFirmListImplement.csproj">
-      <Project>{8af42ed0-e5c5-45c1-840b-e62cbbc81fea}</Project>
-      <Name>LawFirmListImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

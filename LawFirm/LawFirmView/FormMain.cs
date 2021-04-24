@@ -157,5 +157,11 @@ order.Status,order.DateCreate, order.DateImplement});
             var form = Container.Resolve<FormClientOrders>();
             form.ShowDialog();
         }
+
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
     }
 }

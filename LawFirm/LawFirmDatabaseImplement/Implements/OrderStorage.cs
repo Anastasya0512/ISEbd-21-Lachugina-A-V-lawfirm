@@ -19,7 +19,7 @@ namespace LawFirmDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     DocumentId = rec.DocumentId,
-                    DocumentName = rec.Document.DocumentName,                   
+                    DocumentName = rec.Document.DocumentName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -35,29 +35,16 @@ namespace LawFirmDatabaseImplement.Implements
             {
                 return null;
             }
-            if  (model.DateFrom!=null && model.DateTo != null) {
-                using (var context = new LawFirmDatabase())
-            {
-                    return context.Orders.Where(rec => rec.DateCreate>=model.DateFrom && rec.DateImplement<=model.DateTo).Select(rec => new OrderViewModel
-                    {
-                        Id = rec.Id,
-                        DocumentName = context.Documents.FirstOrDefault(r => r.Id == rec.DocumentId).DocumentName,
-                        DocumentId = rec.DocumentId,
-                        Count = rec.Count,
-                        Sum = rec.Sum,
-                        Status = rec.Status,
-                        DateCreate = rec.DateCreate,
-                        DateImplement = rec.DateImplement
-                    }).ToList();
-                }
-            }
             using (var context = new LawFirmDatabase())
             {
-                return context.Orders.Include(rec => rec.Document).Where(rec => rec.Id.Equals(model.Id)).Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Document)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate == model.DateCreate) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
+                .Select(rec => new OrderViewModel
                 {
-                    Id = rec.Id,
+                    Id = rec.Id,      
                     DocumentId = rec.DocumentId,
-                    DocumentName = rec.Document.DocumentName,
+                    DocumentName = context.Documents.Include(x => x.Order).FirstOrDefault(x => x.Id == rec.DocumentId).DocumentName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -66,7 +53,7 @@ namespace LawFirmDatabaseImplement.Implements
                 }).ToList();
             }
         }
-
+          
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null)
@@ -82,7 +69,7 @@ namespace LawFirmDatabaseImplement.Implements
                 {
                     Id = order.Id,
                     DocumentId = order.DocumentId,
-                    DocumentName = order.Document.DocumentName,
+                    DocumentName = context.Documents.Include(x => x.Order).FirstOrDefault(x => x.Id == order.DocumentId)?.DocumentName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
