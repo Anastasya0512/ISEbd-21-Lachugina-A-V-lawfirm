@@ -11,13 +11,13 @@ namespace LawFirmView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
-        private ReportLogic report;
+        private ReportLogic _reportLogic;
 
         public FormMain(OrderLogic orderLogic, ReportLogic Report)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
-            report = Report;
+            _reportLogic = Report;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -142,7 +142,7 @@ order.Status,order.DateCreate, order.DateImplement});
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    report.SaveDocumentsToWordFile(new ReportBindingModel
+                    _reportLogic.SaveDocumentsToWordFile(new ReportBindingModel
                     {
                         FileName = dialog.FileName
                     });
@@ -161,6 +161,40 @@ order.Status,order.DateCreate, order.DateImplement});
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormFullingWarehouse>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void компонентыНаСкладахToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportWarehouseComponents>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовЗаВесьПериодToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrdersAllDates>();
             form.ShowDialog();
         }
     }

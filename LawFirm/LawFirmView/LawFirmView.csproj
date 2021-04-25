@@ -250,6 +250,12 @@
     <Compile Include="FormDocuments.Designer.cs">
       <DependentUpon>FormDocuments.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormFullingWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFullingWarehouse.Designer.cs">
+      <DependentUpon>FormFullingWarehouse.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +267,30 @@
     </Compile>
     <Compile Include="FormReportComponentDocument.Designer.cs">
       <DependentUpon>FormReportComponentDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportOrdersAllDates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportOrdersAllDates.Designer.cs">
+      <DependentUpon>FormReportOrdersAllDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportWarehouseComponents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportWarehouseComponents.Designer.cs">
+      <DependentUpon>FormReportWarehouseComponents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouse.Designer.cs">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouses.Designer.cs">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -285,11 +315,26 @@
     <EmbeddedResource Include="FormDocuments.resx">
       <DependentUpon>FormDocuments.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormFullingWarehouse.resx">
+      <DependentUpon>FormFullingWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportComponentDocument.resx">
       <DependentUpon>FormReportComponentDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportOrdersAllDates.resx">
+      <DependentUpon>FormReportOrdersAllDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportWarehouseComponents.resx">
+      <DependentUpon>FormReportWarehouseComponents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouse.resx">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouses.resx">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
