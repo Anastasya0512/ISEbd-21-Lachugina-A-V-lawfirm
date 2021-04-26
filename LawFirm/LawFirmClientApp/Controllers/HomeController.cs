@@ -125,7 +125,7 @@ namespace LawFirmClientApp.Controllers
             }
             APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
             {
-                ClientId = (int)Program.Client.Id,
+                ClientId = Program.Client.Id,
                 DocumentId = document,
                 Count = count,
                 Sum = sum
@@ -138,6 +138,15 @@ namespace LawFirmClientApp.Controllers
         {
             DocumentViewModel doc = APIClient.GetRequest<DocumentViewModel>($"api/main/getdocument?documentId={document}");
             return count * doc.Price;
+        }
+
+        public IActionResult Mails()
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View(APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/GetMessages?clientId={Program.Client.Id}"));
         }
     }
 }
