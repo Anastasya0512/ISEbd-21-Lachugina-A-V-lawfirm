@@ -1,6 +1,6 @@
 ﻿namespace LawFirmView
 {
-    partial class FormReportOrdersAllDates
+    partial class FormReportOrdersAll
     {
         /// <summary>
         /// Required designer variable.
@@ -64,10 +64,7 @@
             this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
             // reportViewer
-            // 
-            reportDataSource1.Name = "DataSetAllOrders";
-            reportDataSource1.Value = this.ReportOrdersAllDatesViewModelBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            //           
             this.reportViewer.LocalReport.ReportEmbeddedResource = "LawFirmView.ReportAll.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(12, 96);
             this.reportViewer.Name = "reportViewer";
@@ -85,7 +82,6 @@
             this.Controls.Add(this.buttonMake);
             this.Name = "FormReportOrdersAllDates";
             this.Text = "Заказы за весь период";
-            this.Load += new System.EventHandler(this.FormReportOrdersAllDates_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ReportOrdersAllDatesViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 

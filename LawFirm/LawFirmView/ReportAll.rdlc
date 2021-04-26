@@ -170,6 +170,7 @@
                               <Value>=Fields!Date.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
+                                <Format>d</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -190,6 +191,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -284,8 +286,8 @@
         <DataSetName>DataSetAllOrders</DataSetName>
         <Top>2.1082cm</Top>
         <Left>1.51553cm</Left>
-        <Height>2.11667cm</Height>
-        <Width>14.68967cm</Width>
+        <Height>2.11666cm</Height>
+        <Width>14.68968cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>

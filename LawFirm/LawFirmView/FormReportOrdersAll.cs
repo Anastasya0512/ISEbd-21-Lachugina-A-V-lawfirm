@@ -14,14 +14,14 @@ using Unity;
 
 namespace LawFirmView
 {
-    public partial class FormReportOrdersAllDates : Form
+    public partial class FormReportOrdersAll : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
 
-        public FormReportOrdersAllDates(ReportLogic logic)
+        public FormReportOrdersAll(ReportLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
@@ -65,13 +65,6 @@ namespace LawFirmView
                     }
                 }
             }
-        }
-
-        private void FormReportOrdersAllDates_Load(object sender, EventArgs e)
-        {
-
-            this.reportViewer.RefreshReport();
-            this.reportViewer.RefreshReport();
         }
     }
 }

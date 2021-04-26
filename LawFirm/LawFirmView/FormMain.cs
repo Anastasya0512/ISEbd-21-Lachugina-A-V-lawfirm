@@ -194,7 +194,7 @@ order.Status,order.DateCreate, order.DateImplement});
 
         private void списокЗаказовЗаВесьПериодToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportOrdersAllDates>();
+            var form = Container.Resolve<FormReportOrdersAll>();
             form.ShowDialog();
         }
     }

@@ -268,11 +268,11 @@
     <Compile Include="FormReportComponentDocument.Designer.cs">
       <DependentUpon>FormReportComponentDocument.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReportOrdersAllDates.cs">
+    <Compile Include="FormReportOrdersAll.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReportOrdersAllDates.Designer.cs">
-      <DependentUpon>FormReportOrdersAllDates.cs</DependentUpon>
+    <Compile Include="FormReportOrdersAll.Designer.cs">
+      <DependentUpon>FormReportOrdersAll.cs</DependentUpon>
     </Compile>
     <Compile Include="FormReportWarehouseComponents.cs">
       <SubType>Form</SubType>
@@ -324,8 +324,8 @@
     <EmbeddedResource Include="FormReportComponentDocument.resx">
       <DependentUpon>FormReportComponentDocument.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormReportOrdersAllDates.resx">
-      <DependentUpon>FormReportOrdersAllDates.cs</DependentUpon>
+    <EmbeddedResource Include="FormReportOrdersAll.resx">
+      <DependentUpon>FormReportOrdersAll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportWarehouseComponents.resx">
       <DependentUpon>FormReportWarehouseComponents.cs</DependentUpon>
