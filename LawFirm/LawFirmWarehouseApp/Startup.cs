@@ -16,6 +16,7 @@ namespace LawFirmWarehouseApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            APIEmployer.Connect(configuration);
         }
 
         public IConfiguration Configuration { get; }
