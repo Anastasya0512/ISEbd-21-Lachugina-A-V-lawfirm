@@ -201,7 +201,7 @@ namespace LawFirmDatabaseImplement.Implements
             return warehouse;
         }
 
-        public bool WriteOff(int Count, int DocumentId)
+        public bool WriteOff(int DocumentId, int Count)
         {
             using (var context = new LawFirmDatabase())
             {

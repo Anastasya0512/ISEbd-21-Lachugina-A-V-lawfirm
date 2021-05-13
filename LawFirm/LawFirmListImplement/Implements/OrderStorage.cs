@@ -5,6 +5,7 @@ using LawFirmBusinessLogic.ViewModels;
 using LawFirmListImplement.Models;
 using System;
 using System.Collections.Generic;
+using LawFirmBusinessLogic.Enums;
 
 namespace LawFirmListImplement.Implements
 {
@@ -34,14 +35,24 @@ namespace LawFirmListImplement.Implements
                 return null;
             }
 
-            return source.Orders
-            .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
-            rec.DateCreate.Date == model.DateCreate.Date) ||
-            (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
-            >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
-            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-            .Select(CreateModel)
-            .ToList();
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var order in source.Orders)
+            {
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                    order.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <=
+                    model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && order.ClientId == model.ClientId) ||
+                    (model.FreeOrders.HasValue && model.FreeOrders.Value && order.Status == OrderStatus.Принят) ||
+                    (model.ImplementerId.HasValue && order.ImplementerId ==
+                    model.ImplementerId && (order.Status == OrderStatus.Выполняется ||
+                    (model.NeedComponentOrders.HasValue && model.NeedComponentOrders.Value && order.Status == OrderStatus.Требуются_материалы))))
+                {
+                    result.Add(CreateModel(order));
+                }
+            }
+            return result;
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -107,6 +118,7 @@ namespace LawFirmListImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.DocumentId = model.DocumentId;
+            order.ImplementerId = model.ImplementerId;
             order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Sum = model.Sum;
@@ -118,11 +130,39 @@ namespace LawFirmListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
+            string documentName = null;
+            foreach (var document in source.Documents)
+            {
+                if (document.Id == order.DocumentId)
+                {
+                    documentName = document.DocumentName;
+                }
+            }
+            string clientFIO = null;
+            foreach (var client in source.Clients)
+            {
+                if (client.Id == order.ClientId)
+                {
+                    clientFIO = client.ClientFIO;
+                }
+            }
+
+            string ImplementerFIO = null;
+            foreach (var implementer in source.Implementers)
+            {
+                if (implementer.Id == order.DocumentId)
+                {
+                    ImplementerFIO = implementer.ImplementerFIO;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
                 DocumentId = order.DocumentId,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = ImplementerFIO,
+                ClientFIO = clientFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,

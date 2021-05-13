@@ -114,13 +114,13 @@ namespace LawFirmFileImplement.Implements
             };
         }
 
-        public bool WriteOff(int DocumentCount, int DocumentId)
+        public bool WriteOff(int DocumentId, int Count)
         {
             var list = GetFullList();
 
             var DCount = source.Documents.FirstOrDefault(rec => rec.Id == DocumentId).DocumentComponents;
 
-            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * DocumentCount);
+            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * Count);
 
             Dictionary<int, int> Have = new Dictionary<int, int>();
 
