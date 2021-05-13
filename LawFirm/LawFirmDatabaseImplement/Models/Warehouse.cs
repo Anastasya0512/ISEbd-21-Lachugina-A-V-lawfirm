@@ -20,6 +20,6 @@ namespace LawFirmDatabaseImplement.Models
         public DateTime DateCreate { get; set; }
 
         [ForeignKey("WarehouseId")]
-        public virtual List<WarehouseComponent> WarehouseComponents { get; set; }
+        public List<WarehouseComponent> WarehouseComponent { get; set; }
     }
 }
