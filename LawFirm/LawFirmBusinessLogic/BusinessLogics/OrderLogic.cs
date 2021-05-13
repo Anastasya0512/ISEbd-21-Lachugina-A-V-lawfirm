@@ -13,6 +13,10 @@ namespace LawFirmBusinessLogic.BusinessLogics
         private readonly IOrderStorage _orderStorage;
         private readonly IWarehouseStorage _warehouseStorage;
         public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
+
+        private readonly object locker = new object();
+
+        public OrderLogic(IOrderStorage orderStorage)
         {
             _orderStorage = orderStorage;
             _warehouseStorage = warehouseStorage;
@@ -47,6 +51,37 @@ namespace LawFirmBusinessLogic.BusinessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
+            lock (locker)
+            {
+                var order = _orderStorage.GetElement(new OrderBindingModel
+                {
+                    Id = model.OrderId
+                });
+                if (order == null)
+                {
+                    throw new Exception("Не найден заказ");
+                }
+                if (order.Status != OrderStatus.Принят)
+                {
+                    throw new Exception("Заказ не в статусе \"Принят\"");
+                }
+                if (order.ImplementerId.HasValue)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+                _orderStorage.Update(new OrderBindingModel
+                {
+                    Id = order.Id,
+                    DocumentId = order.DocumentId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    DateImplement = DateTime.Now,
+                    Status = OrderStatus.Выполняется,
+                    ClientId = order.ClientId
+                });
+            }
+        }
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
@@ -96,7 +131,8 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов,
-                ClientId = order.ClientId
+                ClientId = order.ClientId,
+                ImplementerId = model.ImplementerId
             });
         }
         public void PayOrder(ChangeStatusBindingModel model)
@@ -117,6 +153,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 DocumentId = order.DocumentId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
