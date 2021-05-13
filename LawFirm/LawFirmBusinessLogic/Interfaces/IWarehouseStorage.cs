@@ -19,6 +19,6 @@ namespace LawFirmBusinessLogic.Interfaces
         void Update(WarehouseBindingModel model);
 
         void Delete(WarehouseBindingModel model);
-        bool WriteOff(int DocumentCount, int DocumentId);
+        bool WriteOff(int DocumentId, int DocumentCount);
     }
 }

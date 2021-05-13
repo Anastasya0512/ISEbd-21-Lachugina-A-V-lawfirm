@@ -295,6 +295,32 @@ namespace LawFirmFileImplement
             }
         }
 
+        private void SaveWarehouses()
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                    new XAttribute("Id", warehouse.Id),
+                    new XElement("WarehouseName", warehouse.WarehouseName),
+                    new XElement("Responsible", warehouse.Responsible),
+                    new XElement("DateCreate", warehouse.DateCreate),
+                    compElement));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
+            }
+        }
+
         private void SaveClients()
         {
             if (Clients != null)
@@ -311,35 +337,6 @@ namespace LawFirmFileImplement
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ClientFileName);
             }
-        }
-            private void SaveWarehouses()
-            {
-                if (Warehouses != null)
-                {
-                    var xElement = new XElement("Warehouses");
-                    foreach (var warehouse in Warehouses)
-                    {
-                        var compElement = new XElement("WarehouseComponents");
-                        foreach (var component in warehouse.WarehouseComponents)
-                        {
-                            compElement.Add(new XElement("WarehouseComponent",
-                            new XElement("Key", component.Key),
-                            new XElement("Value", component.Value)));
-                        }
-                        xElement.Add(new XElement("Warehouse",
-                        new XAttribute("Id", warehouse.Id),
-                        new XElement("WarehouseName", warehouse.WarehouseName),
-                        new XElement("Responsible", warehouse.Responsible),
-                        new XElement("DateCreate", warehouse.DateCreate),
-                        compElement));
-                    }
-                    XDocument xDocument = new XDocument(xElement);
-                    xDocument.Save(WarehouseFileName);
-                }
-            }
-        }
-    }
-
         }
 
         private void SaveImplementers()

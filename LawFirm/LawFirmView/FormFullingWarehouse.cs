@@ -74,8 +74,8 @@ namespace LawFirmView
                 Count = Count
             });
 
-            DialogResult = DialogResult.OK;
-            Close();
+            MessageBox.Show("Склад пополнен", "Информация", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
