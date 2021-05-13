@@ -34,27 +34,14 @@ namespace LawFirmListImplement.Implements
                 return null;
             }
 
-            List<OrderViewModel> result = new List<OrderViewModel>();
-            foreach (var order in source.Orders)
-            {
-                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
-                    && order.DateCreate.Date <= model.DateTo.Value.Date))
-                {
-                    result.Add(CreateModel(order));
-                }
-            }
-
-            List<OrderViewModel> resultRep = new List<OrderViewModel>();
-            foreach (var order in source.Orders)
-            {
-                if (order.DateCreate >= model.DateFrom && order.DateImplement <= model.DateTo)
-                {
-                    resultRep.Add(CreateModel(order));
-                }
-            }
-
-            return result;
+            return source.Orders
+            .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+            rec.DateCreate.Date == model.DateCreate.Date) ||
+            (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
+            >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+            .Select(CreateModel)
+            .ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -117,15 +104,16 @@ namespace LawFirmListImplement.Implements
             throw new Exception("Элемент не найден");
         }
 
-        private Order CreateModel(OrderBindingModel model, Order component)
+        private Order CreateModel(OrderBindingModel model, Order order)
         {
-            component.DocumentId = model.DocumentId;
-            component.Count = model.Count;
-            component.Sum = model.Sum;
-            component.Status = model.Status;
-            component.DateCreate = model.DateCreate;
-            component.DateImplement = model.DateImplement;
-            return component;
+            order.DocumentId = model.DocumentId;
+            order.ClientId = (int)model.ClientId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            order.DateCreate = model.DateCreate;
+            order.DateImplement = model.DateImplement;
+            return order;
         }
 
         private OrderViewModel CreateModel(Order order)
@@ -133,6 +121,7 @@ namespace LawFirmListImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 DocumentId = order.DocumentId,
                 Count = order.Count,
                 Sum = order.Sum,

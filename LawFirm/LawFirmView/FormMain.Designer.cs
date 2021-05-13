@@ -38,6 +38,7 @@
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.документыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.документыПоКомпонентамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,14 +48,6 @@
             this.списокЗаказовЗаВесьПериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пополнениеСкладаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocumentD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -128,6 +121,8 @@
             this.компонентыToolStripMenuItem,
             this.документыToolStripMenuItem,
             this.складыToolStripMenuItem});
+            this.документыToolStripMenuItem,
+            this.клиентыToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -135,14 +130,14 @@
             // компонентыToolStripMenuItem
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
             this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // документыToolStripMenuItem
             // 
             this.документыToolStripMenuItem.Name = "документыToolStripMenuItem";
-            this.документыToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.документыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.документыToolStripMenuItem.Text = "Документы";
             this.документыToolStripMenuItem.Click += new System.EventHandler(this.документыToolStripMenuItem_Click);
             // 
@@ -152,6 +147,13 @@
             this.складыToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.складыToolStripMenuItem.Text = "Склады";
             this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // клиентыToolStripMenuItem
+            // 
+            this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.клиентыToolStripMenuItem.Text = "Клиенты";
+            this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
             // 
             // отчетыToolStripMenuItem
             // 
@@ -219,79 +221,12 @@
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.DocumentD,
-            this.Document,
-            this.Count,
-            this.Sum,
-            this.Status,
-            this.DateCreate,
-            this.DateEnd});
             this.dataGridView.Location = new System.Drawing.Point(13, 33);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.Size = new System.Drawing.Size(879, 518);
             this.dataGridView.TabIndex = 13;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "id";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            this.ID.Width = 125;
-            // 
-            // DocumentD
-            // 
-            this.DocumentD.HeaderText = "DocumentId";
-            this.DocumentD.MinimumWidth = 6;
-            this.DocumentD.Name = "DocumentD";
-            this.DocumentD.Visible = false;
-            this.DocumentD.Width = 125;
-            // 
-            // Document
-            // 
-            this.Document.HeaderText = "Документ";
-            this.Document.MinimumWidth = 6;
-            this.Document.Name = "Document";
-            this.Document.Width = 125;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Количество";
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
-            this.Count.Width = 125;
-            // 
-            // Sum
-            // 
-            this.Sum.HeaderText = "Сумма";
-            this.Sum.MinimumWidth = 6;
-            this.Sum.Name = "Sum";
-            this.Sum.Width = 125;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Статус";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.Width = 125;
-            // 
-            // DateCreate
-            // 
-            this.DateCreate.HeaderText = "Дата создания";
-            this.DateCreate.MinimumWidth = 6;
-            this.DateCreate.Name = "DateCreate";
-            this.DateCreate.Width = 125;
-            // 
-            // DateEnd
-            // 
-            this.DateEnd.HeaderText = "Дата завершения";
-            this.DateEnd.MinimumWidth = 6;
-            this.DateEnd.Name = "DateEnd";
-            this.DateEnd.Width = 125;
             // 
             // FormMain
             // 
@@ -329,14 +264,6 @@
         private System.Windows.Forms.ToolStripMenuItem компонентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem документыToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DocumentD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Document;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateEnd;
         private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem документыПоКомпонентамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокToolStripMenuItem;
@@ -346,5 +273,6 @@
         private System.Windows.Forms.ToolStripMenuItem списокСкладовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem компонентыНаСкладахToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЗаказовЗаВесьПериодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
     }
 }
