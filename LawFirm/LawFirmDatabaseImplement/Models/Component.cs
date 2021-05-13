@@ -12,9 +12,9 @@ namespace LawFirmDatabaseImplement.Models
         public string ComponentName { get; set; }
 
         [ForeignKey("ComponentId")]
-        public virtual List<DocumentComponent> DocumentComponents { get; set; }
+        public virtual List<DocumentComponent> DocumentComponent { get; set; }
 
         [ForeignKey("ComponentId")]
-        public virtual List<WarehouseComponent> WarehouseComponents { get; set; }
+        public virtual List<WarehouseComponent> WarehouseComponent { get; set; }
     }
 }

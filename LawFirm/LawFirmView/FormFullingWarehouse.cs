@@ -67,7 +67,13 @@ namespace LawFirmView
                 return;
             }
 
-            _warehouseLogic.Filling(new WarehouseBindingModel { }, WarehouseId, ComponentId, Count, ComponentName);
+            _warehouseLogic.Filling(new WarehouseRestokingBindingModel
+            {
+                WarehouseId = WarehouseId,
+                ComponentId = ComponentId,
+                Count = Count
+            });
+
             DialogResult = DialogResult.OK;
             Close();
         }

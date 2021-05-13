@@ -17,7 +17,7 @@ namespace LawFirmDatabaseImplement.Implements
             using (var context = new LawFirmDatabase())
             {
                 return context.Warehouses
-                .Include(rec => rec.WarehouseComponents)
+                .Include(rec => rec.WarehouseComponent)
                 .ThenInclude(rec => rec.Component)
                 .ToList()
                 .Select(rec => new WarehouseViewModel
@@ -26,7 +26,7 @@ namespace LawFirmDatabaseImplement.Implements
                     WarehouseName = rec.WarehouseName,
                     Responsible = rec.Responsible,
                     DateCreate = rec.DateCreate,
-                    WarehouseComponents = rec.WarehouseComponents
+                    WarehouseComponents = rec.WarehouseComponent
                 .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
                 }).ToList();
             }
@@ -41,7 +41,7 @@ namespace LawFirmDatabaseImplement.Implements
             using (var context = new LawFirmDatabase())
             {
                 return context.Warehouses
-                .Include(rec => rec.WarehouseComponents)
+                .Include(rec => rec.WarehouseComponent)
                 .ThenInclude(rec => rec.Component)
                 .Where(rec => rec.WarehouseName.Contains(model.WarehouseName))
                 .ToList()
@@ -51,7 +51,7 @@ namespace LawFirmDatabaseImplement.Implements
                     WarehouseName = rec.WarehouseName,
                     Responsible = rec.Responsible,
                     DateCreate = rec.DateCreate,
-                    WarehouseComponents = rec.WarehouseComponents
+                    WarehouseComponents = rec.WarehouseComponent
                 .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
                 }).ToList();
             }
@@ -66,7 +66,7 @@ namespace LawFirmDatabaseImplement.Implements
             using (var context = new LawFirmDatabase())
             {
                 var warehouse = context.Warehouses
-                .Include(rec => rec.WarehouseComponents)
+                .Include(rec => rec.WarehouseComponent)
                 .ThenInclude(rec => rec.Component)
                 .FirstOrDefault(rec => rec.WarehouseName.Equals(model.WarehouseName) || rec.Id
                 == model.Id);
@@ -77,7 +77,7 @@ namespace LawFirmDatabaseImplement.Implements
                     WarehouseName = warehouse.WarehouseName,
                     Responsible = warehouse.Responsible,
                     DateCreate = warehouse.DateCreate,
-                    WarehouseComponents = warehouse.WarehouseComponents
+                    WarehouseComponents = warehouse.WarehouseComponent
                 .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
                 } : null;
             }

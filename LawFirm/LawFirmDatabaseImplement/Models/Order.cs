@@ -14,8 +14,6 @@ namespace LawFirmDatabaseImplement.Models
 
         public int DocumentId { get; set; }
 
-        public virtual Document Document { get; set; }
-
         [Required]
         public int Count { get; set; }
 
@@ -29,5 +27,9 @@ namespace LawFirmDatabaseImplement.Models
         public DateTime DateCreate { get; set; }
 
         public DateTime? DateImplement { get; set; }
+
+        public virtual Document Document { get; set; }
+
+        public virtual Client Client { get; set; }
     }
 }

@@ -191,7 +191,7 @@ namespace LawFirmDatabaseImplement.Migrations
             modelBuilder.Entity("LawFirmDatabaseImplement.Models.DocumentComponent", b =>
                 {
                     b.HasOne("LawFirmDatabaseImplement.Models.Component", "Component")
-                        .WithMany("DocumentComponents")
+                        .WithMany("DocumentComponent")
                         .HasForeignKey("ComponentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -205,13 +205,13 @@ namespace LawFirmDatabaseImplement.Migrations
 
             modelBuilder.Entity("LawFirmDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("LawFirmDatabaseImplement.Models.Client", null)
+                    b.HasOne("LawFirmDatabaseImplement.Models.Client", "Client")
                         .WithMany("Order")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LawFirmDatabaseImplement.Models.Document", null)
+                    b.HasOne("LawFirmDatabaseImplement.Models.Document", "Document")
                         .WithMany("Order")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,13 +221,13 @@ namespace LawFirmDatabaseImplement.Migrations
             modelBuilder.Entity("LawFirmDatabaseImplement.Models.WarehouseComponent", b =>
                 {
                     b.HasOne("LawFirmDatabaseImplement.Models.Component", "Component")
-                        .WithMany("WarehouseComponents")
+                        .WithMany("WarehouseComponent")
                         .HasForeignKey("ComponentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LawFirmDatabaseImplement.Models.Warehouse", "Warehouse")
-                        .WithMany("WarehouseComponents")
+                        .WithMany("WarehouseComponent")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

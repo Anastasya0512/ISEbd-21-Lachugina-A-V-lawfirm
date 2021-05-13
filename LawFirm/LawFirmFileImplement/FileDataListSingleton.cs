@@ -89,9 +89,8 @@ namespace LawFirmFileImplement
 
                 foreach (var elem in xElements)
                 {
-                    OrderStatus orderStatus = 0;
-                    DateTime? dateImplement = null;
-                    if (elem.Element("DateImplement").Value != "")
+                    OrderStatus status = 0;
+                    switch (elem.Element("Status").Value)
                     {
                         case "Принят":
                             status = OrderStatus.Принят;
@@ -104,21 +103,6 @@ namespace LawFirmFileImplement
                             break;
                         case "Оплачен":
                             status = OrderStatus.Оплачен;
-                            break;
-                    }
-                    switch (elem.Element("Status").Value)
-                    {
-                        case "Принят":
-                            orderStatus = OrderStatus.Принят;
-                            break;
-                        case "Выполняется":
-                            orderStatus = OrderStatus.Выполняется;
-                            break;
-                        case "Готов":
-                            orderStatus = OrderStatus.Готов;
-                            break;
-                        case "Оплачен":
-                            orderStatus = OrderStatus.Оплачен;
                             break;
                     }
 
@@ -134,10 +118,10 @@ namespace LawFirmFileImplement
                         DocumentId = Convert.ToInt32(elem.Element("DocumentId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
-                        Status = orderStatus,
+                        Status = status,
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
-                        DateImplement = dateImplement
-                    }); 
+                        DateImplement = date
+                    });
                 }
             }
             return list;
