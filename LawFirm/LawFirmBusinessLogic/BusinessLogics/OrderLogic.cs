@@ -5,6 +5,7 @@ using LawFirmBusinessLogic.BindingModels;
 using LawFirmBusinessLogic.ViewModels;
 using LawFirmBusinessLogic.Interfaces;
 using LawFirmBusinessLogic.Enums;
+using LawFirmBusinessLogic.HelperModels;
 
 namespace LawFirmBusinessLogic.BusinessLogics
 {
@@ -12,11 +13,15 @@ namespace LawFirmBusinessLogic.BusinessLogics
     {
         private readonly IOrderStorage _orderStorage;
         private readonly IWarehouseStorage _warehouseStorage;
+
+        private readonly IClientStorage _clientStorage;
+
         private readonly object locker = new object();
         public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
             _warehouseStorage = warehouseStorage;
+            _clientStorage = clientStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -43,6 +48,16 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят,
                 ClientId = model.ClientId
+            });
+
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = model.ClientId
+                })?.Email,
+                Subject = $"Новый заказ",
+                Text = $"Заказ от {DateTime.Now} на сумму {model.Sum:N2} принят."
             });
         }
 
@@ -77,6 +92,17 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется,
                     ClientId = order.ClientId
+                });
+
+                MailLogic.MailSendAsync(new MailSendInfo
+                {
+                    MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                    {
+                        Id = order.ClientId
+                    })?.Email,
+                    Subject = $"Заказ №{order.Id}",
+                    Text = $"Заказ №{order.Id} передан в работу."
+                });
                 };
                 if (!_warehouseStorage.WriteOff(order.DocumentId, order.Count))
                 {
@@ -113,6 +139,16 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 ClientId = order.ClientId,
                 ImplementerId = model.ImplementerId
             });
+
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выполнен."
+            });
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {
@@ -138,7 +174,17 @@ namespace LawFirmBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Оплачен,
-                ClientId = order.ClientId
+                ClientId = order.ClientId,
+            });
+
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} оплачен."
             });
         }
     }
