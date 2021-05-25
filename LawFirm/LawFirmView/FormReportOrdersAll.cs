@@ -18,8 +18,6 @@ namespace LawFirmView
 {
     public partial class FormReportOrdersAll : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
 

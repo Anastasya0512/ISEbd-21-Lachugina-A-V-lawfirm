@@ -12,7 +12,7 @@ namespace LawFirmBusinessLogic.ViewModels
     {
         [DataMember]
         [Column(title: "Номер", width: 100, visible: false)]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [DataMember]
         [Column(title: "ФИО", width: 150)]

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
+using LawFirmBusinessLogic.ViewModels;
+using System.Reflection;
 using LawFirmBusinessLogic.BusinessLogics;
 using LawFirmBusinessLogic.BindingModels;
 
@@ -15,8 +16,6 @@ namespace LawFirmView
 {
     public partial class FormReportComponentDocument : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
 
@@ -30,7 +29,9 @@ namespace LawFirmView
         {
             try
             {
-                var dict = logic.GetComponentDocument();
+                MethodInfo method = logic.GetType().GetMethod("GetComponentDocument");
+                List<ReportComponentDocumentViewModel> dict = (List<ReportComponentDocumentViewModel>)
+                    method.Invoke(logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -61,10 +62,11 @@ namespace LawFirmView
                 {
                     try
                     {
-                        logic.SaveComponentDocumentToExcelFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveComponentDocumentToExcelFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }

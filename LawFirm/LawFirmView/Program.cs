@@ -111,6 +111,7 @@ namespace LawFirmView
                                 Visible = columnAttr.Visible,
                                 Width = columnAttr.Width
                             };
+                            column.DefaultCellStyle.Format = columnAttr.DateFormat;
                             if (columnAttr.GridViewAutoSize !=
                             GridViewAutoSize.None)
                             {

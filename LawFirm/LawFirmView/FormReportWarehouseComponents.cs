@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LawFirmBusinessLogic.BindingModels;
 using LawFirmBusinessLogic.BusinessLogics;
-using Unity;
+using LawFirmBusinessLogic.ViewModels;
+using System.Reflection;
 
 namespace LawFirmView
 {
     public partial class FormReportWarehouseComponents : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
         public FormReportWarehouseComponents(ReportLogic logic)
@@ -33,15 +32,18 @@ namespace LawFirmView
                 {
                     try
                     {
-                        logic.SaveWarehouseComponentsToExcelFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveWarehouseComponentToExcelFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        } });
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                     }
                 }
             }
@@ -51,28 +53,28 @@ namespace LawFirmView
         {
             try
             {
-                var warehouseComponents = logic.GetWarehouseComponents();
-                if (warehouseComponents != null)
+                MethodInfo method = logic.GetType().GetMethod("GetWarehouseComponent");
+                List<ReportWarehouseComponentViewModel> dict = (List<ReportWarehouseComponentViewModel>)
+                    method.Invoke(logic, new object[] { });
+                if (dict != null)
                 {
                     DataGridView.Rows.Clear();
-
-                    foreach (var warehouse in warehouseComponents)
+                    foreach (var elem in dict)
                     {
-                        DataGridView.Rows.Add(new object[] { warehouse.WarehouseName, "", "" });
-
-                        foreach (var component in warehouse.Components)
+                        DataGridView.Rows.Add(new object[] { elem.WarehouseName, "", "" });
+                        foreach (var listElem in elem.Components)
                         {
-                            DataGridView.Rows.Add(new object[] { "", component.Item1, component.Item2 });
+                            DataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }
-
-                        DataGridView.Rows.Add(new object[] { "Итого", "", warehouse.TotalCount });
+                        DataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
                         DataGridView.Rows.Add(new object[] { });
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
             }
         }
     }
