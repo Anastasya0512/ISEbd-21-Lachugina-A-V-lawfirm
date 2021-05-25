@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
+using LawFirmBusinessLogic.Attributes;
 using System.ComponentModel;
 
 namespace LawFirmBusinessLogic.ViewModels
@@ -10,18 +11,19 @@ namespace LawFirmBusinessLogic.ViewModels
     public class ClientViewModel
     {
         [DataMember]
-        public int? Id { get; set; }
+        [Column(title: "Номер", width: 100, visible: false)]
+        public int Id { get; set; }
 
         [DataMember]
-        [DisplayName("ФИО")]
+        [Column(title: "ФИО", width: 150)]
         public string ClientFIO { get; set; }
 
         [DataMember]
-        [DisplayName("Логин")]
+        [Column(title: "Логин", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string Email { get; set; }
 
         [DataMember]
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 150)]
         public string Password { get; set; }
     }
 }
