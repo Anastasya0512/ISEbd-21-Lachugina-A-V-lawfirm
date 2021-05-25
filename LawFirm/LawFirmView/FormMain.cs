@@ -6,6 +6,8 @@ using System;
 using System.Windows.Forms;
 using Unity;
 using System.Collections.Generic;
+using System.Reflection;
+
 namespace LawFirmView
 {
     public partial class FormMain : Form
@@ -95,10 +97,11 @@ namespace LawFirmView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    _reportLogic.SaveDocumentsToWordFile(new ReportBindingModel
+                    MethodInfo method = _reportLogic.GetType().GetMethod("SaveDocumentsToWordFile");
+                    method.Invoke(_reportLogic, new object[] {new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }
@@ -129,12 +132,13 @@ namespace LawFirmView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                    MethodInfo method = _reportLogic.GetType().GetMethod("SaveWarehousesToWordFile");
+                    method.Invoke(_reportLogic, new object[] {new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
-
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 }
             }
         }

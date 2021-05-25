@@ -11,6 +11,8 @@ using Microsoft.Reporting.WinForms;
 using LawFirmBusinessLogic.BindingModels;
 using LawFirmBusinessLogic.BusinessLogics;
 using Unity;
+using LawFirmBusinessLogic.ViewModels;
+using System.Reflection;
 
 namespace LawFirmView
 {
@@ -31,16 +33,16 @@ namespace LawFirmView
         {
             try
             {
-                var dataSource = logic.GetOrdersForAllDates();
-
-                ReportDataSource source = new ReportDataSource("DataSetAllOrders", dataSource);
+                MethodInfo method = logic.GetType().GetMethod("GetOrdersGroupByDate");
+                List<ReportOrdersViewModel> dataSource = (List<ReportOrdersViewModel>)method.Invoke(logic, new object[] { });
+                ReportDataSource source = new ReportDataSource("DataSetOrders",
+                dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
         }
 

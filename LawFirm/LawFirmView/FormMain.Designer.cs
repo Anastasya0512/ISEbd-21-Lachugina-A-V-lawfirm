@@ -91,7 +91,7 @@
             this.справочникиToolStripMenuItem,
             this.отчетыToolStripMenuItem,
             this.пополнениеСкладаToolStripMenuItem,
-            this.запускРаботToolStripMenuItem});
+            this.запускРаботToolStripMenuItem,
             this.запускРаботToolStripMenuItem,
             this.создатьБэкапToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
