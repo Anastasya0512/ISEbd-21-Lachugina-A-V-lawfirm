@@ -10,7 +10,7 @@ namespace LawFirmBusinessLogic.ViewModels
     public class ClientViewModel
     {
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [DataMember]
         [DisplayName("ФИО")]

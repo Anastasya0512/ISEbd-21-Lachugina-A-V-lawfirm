@@ -17,7 +17,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
         private readonly IClientStorage _clientStorage;
 
         private readonly object locker = new object();
-        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
             _warehouseStorage = warehouseStorage;
@@ -92,7 +92,13 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется,
                     ClientId = order.ClientId
-                });
+                };
+                if (!_warehouseStorage.WriteOff(order.DocumentId, order.Count))
+                {
+                    orderModel.Status = OrderStatus.Требуются_материалы;
+                    orderModel.ImplementerId = null;
+                }
+                _orderStorage.Update(orderModel);
 
                 MailLogic.MailSendAsync(new MailSendInfo
                 {
@@ -102,14 +108,7 @@ namespace LawFirmBusinessLogic.BusinessLogics
                     })?.Email,
                     Subject = $"Заказ №{order.Id}",
                     Text = $"Заказ №{order.Id} передан в работу."
-                });
-                };
-                if (!_warehouseStorage.WriteOff(order.DocumentId, order.Count))
-                {
-                    orderModel.Status = OrderStatus.Требуются_материалы;
-                    orderModel.ImplementerId = null;
-                }
-                _orderStorage.Update(orderModel);
+                });             
             }
         }
 
