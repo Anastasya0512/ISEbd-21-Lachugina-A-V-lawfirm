@@ -99,7 +99,8 @@ namespace LawFirmClientApp.Controllers
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
             && !string.IsNullOrEmpty(fio))
             {
-                APIClient.PostRequest("api/client/register", new ClientBindingModel
+                APIClient.PostRequest("api/client/register", new
+                ClientBindingModel
                 {
                     ClientFIO = fio,
                     Email = login,
@@ -125,7 +126,7 @@ namespace LawFirmClientApp.Controllers
             }
             APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
             {
-                ClientId = (int)Program.Client.Id,
+                ClientId = Program.Client.Id.Value,
                 DocumentId = document,
                 Count = count,
                 Sum = sum
@@ -133,11 +134,22 @@ namespace LawFirmClientApp.Controllers
             Response.Redirect("Index");
         }
 
+        public IActionResult Mails(int page = 1)
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            int pageSize = 7;   // количество элементов на странице            
+            return View(APIClient.GetRequest<PageViewModel>($"api/client/GetPage?pageSize={pageSize}" +
+                $"&page={page}&ClientId={Program.Client.Id}"));
+        }
+
         [HttpPost]
         public decimal Calc(decimal count, int document)
         {
-            DocumentViewModel doc = APIClient.GetRequest<DocumentViewModel>($"api/main/getdocument?documentId={document}");
-            return count * doc.Price;
+            DocumentViewModel prod = APIClient.GetRequest<DocumentViewModel>($"api/main/getdocument?documentId={document}");
+            return count * prod.Price;
         }
     }
 }

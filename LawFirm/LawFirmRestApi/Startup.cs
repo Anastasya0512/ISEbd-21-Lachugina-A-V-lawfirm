@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LawFirmBusinessLogic.Interfaces;
+using LawFirmBusinessLogic.HelperModels;
 using LawFirmBusinessLogic.BusinessLogics;
 using LawFirmDatabaseImplement.Implements;
 using Microsoft.AspNetCore.Builder;
@@ -31,11 +32,20 @@ namespace LawFirmRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDocumentStorage, DocumentStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
             services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<DocumentLogic>();
+            services.AddTransient<MailLogic>();
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = "smtp.gmail.com",
+                SmtpClientPort = 587,
+                MailLogin = "proverkalaby@gmail.com",
+                MailPassword = "Proverkalaby1",
+            });
             services.AddTransient<WarehouseLogic>();
             services.AddTransient<ComponentLogic>();
             services.AddControllers().AddNewtonsoftJson();
